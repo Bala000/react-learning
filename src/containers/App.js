@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
-
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 class App extends Component {
   state = {
     persons: [
@@ -43,45 +42,24 @@ class App extends Component {
   render() {
 
     let persons = null;
-    let btnClass = '';
+    
     if(this.state.togglePerson)
     {
       persons = (
-     <div>
-       {
-         this.state.persons.map( (person,index) => {
-           return (
-             <ErrorBoundary key={person.id}>
-           <Person 
-            name ={person.name} 
-            age={person.age}
-            click={() => this.deletePersonHandler(index)}
-            
-            change={(event) => this.nameChangeHandler(event, person.id)}
-            /> </ErrorBoundary>
-          );
-         })
-       }
-     
-    </div> );
-    btnClass = classes.Red;
+         <Persons 
+         persons={this.state.persons}
+         clicked = {this.deletePersonHandler}
+         changed = {this.nameChangeHandler}
+         />);
     }
 
-    const assignedClasses = [];
-    if(this.state.persons.length <= 2)
-    {
-      assignedClasses.push(classes.red);
-    }
-    if(this.state.persons.length <=1)
-    {
-      assignedClasses.push(classes.bold);
-    }
 
     return (
       <div className={classes.App}>
-       <h1>Hello - world</h1>
-       <p className={assignedClasses.join(" ")}> This is a status paragraph</p>
-       <button className={btnClass} onClick={this.togglePersonsHandler}>Toggle Persons</button>
+      <Cockpit 
+        clicked={this.togglePersonsHandler}
+        togglePerson = {this.state.togglePerson}
+        persons={this.state.persons} />
         {persons}
       </div>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Person.css';
 const person = (props) => {
     const rand = Math.random();
-    if(rand>0.7)
+    if(rand>0.9)
     {
         throw new Error("artificial error thrown");
     }
